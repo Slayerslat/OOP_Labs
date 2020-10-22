@@ -94,11 +94,11 @@
       <screen x="0" y="0" width="1280" height="984" />
     </state>
     <state x="94" y="147" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1280.984@0.0.1280.984" timestamp="1600953664672" />
-    <state x="630" y="261" key="FileChooserDialogImpl" timestamp="1601996743163">
+    <state x="630" y="261" key="FileChooserDialogImpl" timestamp="1602664040854">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="420" y="247" key="FileChooserDialogImpl/0.0.1280.984@0.0.1280.984" timestamp="1600959434065" />
-    <state x="630" y="261" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1601996743163" />
+    <state x="630" y="261" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1602664040854" />
     <state width="1877" height="70" key="GridCell.Tab.0.bottom" timestamp="1602375095430">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -123,5 +123,9 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="440" y="94" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1601996787854" />
+    <state x="342" y="140" key="new project wizard" timestamp="1602664044921">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="342" y="140" key="new project wizard/0.0.1920.1040@0.0.1920.1040" timestamp="1602664044921" />
   </component>
 </project>
