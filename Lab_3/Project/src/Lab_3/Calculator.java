@@ -18,8 +18,8 @@ public class Calculator implements Serializable
     {
         try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(name + ".clc")))
         {
-            System.out.print("Файл найден. Начинаю сборку.\n");
             Calculator temp = (Calculator)ois.readObject();
+            System.out.print("Файл найден. Начинаю сборку.\n");
             a = temp.a;
             b = temp.b;
             operation = temp.operation;

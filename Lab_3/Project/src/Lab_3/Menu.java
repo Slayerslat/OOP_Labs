@@ -1,6 +1,5 @@
 package Lab_3;
 import java.util.Scanner;
-
 public class Menu
 {
     private static Scanner input = new Scanner(System.in);

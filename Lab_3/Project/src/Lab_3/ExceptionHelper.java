@@ -1,6 +1,5 @@
 package Lab_3;
 import java.util.Scanner;
-
 public class ExceptionHelper
 {
     private static Scanner input = new Scanner(System.in);

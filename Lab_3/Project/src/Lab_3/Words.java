@@ -14,9 +14,9 @@ public class Words implements Serializable
     {
         try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(name + ".ws")))
         {
-            System.out.print("Файл найден. Начинаю сборку.\n");
             Words temp = (Words)ois.readObject();
-            line = temp.getLine();
+            System.out.print("Файл найден. Начинаю сборку.\n");
+            line = temp.line;
         }
         catch(Exception exception)
         {
@@ -43,7 +43,7 @@ public class Words implements Serializable
     {
         return line;
     }
-    public void doTask()
+    private void doTask()
     {
         int counter = 0;
         String[] buffer = line.split("[, ]");
