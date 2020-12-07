@@ -2,6 +2,7 @@ package Lab_4;
 
 public abstract class Character extends Interactable
 {
+    public boolean canAttack = false;
     public void attack(Character target)
     {
         System.out.println(shortDescription() + " -> " + target.shortDescription());

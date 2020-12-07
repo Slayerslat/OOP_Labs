@@ -4,16 +4,18 @@ public class Hero extends Character
 {
     private int armor;
     private Weapon equippedWeapon;
-    public Hero(String name, int damage, int health)
+    public Hero(String name, int cost, int damage, int health)
     {
         this.name = name;
+        this.manaCost = cost;
         this.health = health;
         this.maxHealth = health;
         this.damage = damage;
     }
-    public Hero(String name, int damage, int health, int armor)
+    public Hero(String name, int cost, int damage, int health, int armor)
     {
         this.name = name;
+        this.manaCost = cost;
         this.health = health;
         this.maxHealth = health;
         this.damage = damage;
@@ -28,6 +30,13 @@ public class Hero extends Character
             health -= value - armor;
             armor = 0;
         }
+    }
+    public boolean canAttack()
+    {
+        if (equippedWeapon != null)
+            return canAttack && equippedWeapon.damage > 0;
+        else
+            return false;
     }
     public void equipWeapon(Weapon weapon)
     {
@@ -48,21 +57,25 @@ public class Hero extends Character
         takeDamage(target.damage);
         System.out.println(shortDescription() + " -- " + target.shortDescription());
     }
+    public void onPlay()
+    {
+        Main.setHero(this);
+    }
     public String toString()
     {
         if (equippedWeapon == null)
         {
             if (armor < 1)
-                return name + ". Атака " + damage + ". Здоровье " + health + ".";
+                return name + ". Стоймость " + manaCost + ". Атака " + damage + ". Здоровье " + health + ".";
             else
-                return name + ". Атака " + damage + ". Здоровье " + health + ". Броня " + armor + ".";
+                return name + ". Стоймость " + manaCost + ". Атака " + damage + ". Здоровье " + health + ". Броня " + armor + ".";
         }
         else
         {
             if (armor < 1)
-                return name + ". Атака " + damage + ". Экипировано оружие" + equippedWeapon.shortDescription() + ". Здоровье " + health + ".";
+                return name + ". Стоймость " + manaCost + ". Атака " + damage + ". Экипировано оружие" + equippedWeapon.shortDescription() + ". Здоровье " + health + ".";
             else
-                return name + ". Атака " + damage + ". Экипировано оружие" + equippedWeapon.shortDescription() + ". Здоровье " + health + ". Броня " + armor + ".";
+                return name + ". Стоймость " + manaCost + ". Атака " + damage + ". Экипировано оружие" + equippedWeapon.shortDescription() + ". Здоровье " + health + ". Броня " + armor + ".";
         }
     }
     public String shortDescription()
