@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Main
 {
+    private static CardCollection collection;
     private static Creature student = new Creature("Вежливый студент", 2, 1, 8);
     private static Creature caredOne = new Creature("Любимец преподавателей", 3, 4, 1, true);
     private static Weapon deadline = new Weapon("Пылающий дедлайн", 4, 3, 2);
@@ -12,8 +13,8 @@ public class Main
     private static ArrayList<Character> characters = new ArrayList<Character>();
     public static ArrayList<Creature> enemySide = new ArrayList<Creature>();
     public static ArrayList<Creature> playerSide = new ArrayList<Creature>();
-    private static ArrayList<Card> enemyHand = new ArrayList<Card>();
     private static ArrayList<Card> playerHand = new ArrayList<Card>();
+    private static ArrayList<Card> basicPlayerHand = new ArrayList<Card>();
     private static int playerHandSize;
     private static int enemyCreaturesCount;
     private static int playerCreaturesCount;
@@ -22,22 +23,205 @@ public class Main
     public static Hero playerHero;
     private static int playerMana;
     private static int playerMaxMana;
-    private static int enemyMana;
-    private static int enemyMaxMana;
 
     public static void main(String[] args)
     {
-        enemySide.add(student.clone());
-        enemySide.add(caredOne.clone());
-        enemySide.add(student.clone());
-        setHero(debtor);
-        playerHand.add(deadline);
-        playerHand.add(caredOne.clone());
-        playerHand.add(student.clone());
-        playerHand.add(caredOne.clone());
-        enemyHero = MinObrRF;
+//        String test = "Kitty 1 1 1 true/Doggy 1 1 1 falseMark:Bone 2 2 2";
+//        String[] test1 = test.split("Mark:");
+//        for (String txt: test1)
+//            System.out.println("<" + txt + ">");
+//        String[] test2 = test1[0].split("/");
+//        for (String txt: test2)
+//            System.out.println("<" + txt + ">");
+
+
+
+
+
+
+
+
+        collection = CardCollection.load();
+        if (false)
+        {
+            collection = new CardCollection();
+            collection.weapons.add(deadline.cloneCard());
+            collection.creatures.add(caredOne.cloneCard());
+            collection.creatures.add(student.cloneCard());
+            collection.save();
+        }
+        basicPlayerHand.add(deadline.cloneCard());
+        basicPlayerHand.add(caredOne.cloneCard());
+        basicPlayerHand.add(student.cloneCard());
+        basicPlayerHand.add(caredOne.cloneCard());
+        int choice = -1;
+        while (choice != 0)
+        {
+            System.out.println("Что вы хотите сделать?");
+            System.out.println("1. Посмотреть начальную руку.");
+            System.out.println("2. Очистить начальную руку.");
+            System.out.println("3. Добавить карту в начальную руку.");
+            System.out.println("4. Создать новую карту.");
+            System.out.println("5. Перейти в режим игры(beta).");
+            System.out.println("0. Завершить работу.");
+            System.out.print("Ваш выбор: ");
+            choice = ExceptionHelper.readInt();
+            switch (choice)
+            {
+                case 1:
+                    playerHand = basicPlayerHand;
+                    showHand();
+                    break;
+                case 2:
+                    clearHand();
+                    break;
+                case 3:
+                    cardAddMenu();
+                    break;
+                case 4:
+                    cardCreatorMenu();
+                    break;
+                case 5:
+                    gameMenu();
+                    break;
+                case 0:
+                    System.out.println("Завершаю работу.");
+                    break;
+                default:
+                    System.out.println("Некорректный ввод.");
+                    break;
+            }
+        }
+    }
+    public static void cardAddMenu()
+    {
+        System.out.println("Какую карту вы хотите добавить?");
+        System.out.println("Оружие");
+        int i = 0;
+        for (Weapon weapon: collection.weapons)
+        {
+            i++;
+            System.out.println(i + ". " + weapon.toString());
+        }
+        int iWeapon = i;
+        System.out.println("\nСущества");
+        for (Creature creature: collection.creatures)
+        {
+            i++;
+            System.out.println(i + ". " + creature.toString());
+        }
+        System.out.println("0. Отмена.");
+        System.out.print("Номер добавляемой карты: ");
+        int choice = ExceptionHelper.readInt();
+        while (choice < 0 || choice > i)
+        {
+            System.out.print("Не существует такой карты. Номер добавляемой карты: ");
+            choice = ExceptionHelper.readInt();
+        }
+        if (choice > 0)
+        {
+            if (choice <= iWeapon)
+                basicPlayerHand.add(collection.weapons.get(choice - 1).cloneCard());
+            else
+                basicPlayerHand.add(collection.creatures.get(choice - iWeapon - 1).cloneCard());
+        }
+    }
+    public static void clearHand()
+    {
+        basicPlayerHand = new ArrayList<Card>();
+    }
+    public static void cardCreatorMenu()
+    {
+        System.out.println("1. Создать существо.");
+        System.out.println("2. Создать оружие.");
+        System.out.println("0. Отмена.");
+        System.out.print("Ваш выбор: ");
+        int choice = ExceptionHelper.readInt();
+        switch (choice)
+        {
+            case 1:
+                System.out.print("Имя: ");
+                String tempName = ExceptionHelper.readString();
+                System.out.print("Стоймость в мане: ");
+                int tempMana = ExceptionHelper.readInt();
+                while (tempMana < 0 || tempMana > 10)
+                {
+                    System.out.print("Существо не может стоить менее 0 и более 10 маны. Стоймость в мане: ");
+                    tempMana = ExceptionHelper.readInt();
+                }
+                System.out.print("Атака: ");
+                int tempAttack = ExceptionHelper.readInt();
+                while (tempAttack < 0)
+                {
+                    System.out.print("Существо не может иметь менее 0 атаки. Атака: ");
+                    tempAttack = ExceptionHelper.readInt();
+                }
+                System.out.print("Здоровье: ");
+                int tempHealth = ExceptionHelper.readInt();
+                while (tempHealth < 1)
+                {
+                    System.out.print("Существо не может иметь менее 1 здоровья. Здоровье: ");
+                    tempHealth = ExceptionHelper.readInt();
+                }
+                System.out.print("Имеет божественный щит(-/+): ");
+                String tempBubble = ExceptionHelper.readString();
+                while (tempBubble != "+" && tempBubble != "-")
+                {
+                    System.out.print("Введите - или +. Имеет божественный щит(-/+): ");
+                    tempBubble = ExceptionHelper.readString();
+                }
+                if (tempBubble == "-")
+                    collection.creatures.add(new Creature(tempName, tempMana, tempAttack, tempHealth));
+                else
+                    collection.creatures.add(new Creature(tempName, tempMana, tempAttack, tempHealth, true));
+                collection.save();
+                break;
+            case 2:
+                System.out.print("Имя: ");
+                String tempWeaponName = ExceptionHelper.readString();
+                System.out.print("Стоймость в мане: ");
+                int tempWeaponMana = ExceptionHelper.readInt();
+                while (tempWeaponMana < 0 || tempWeaponMana > 10)
+                {
+                    System.out.print("Оружие не может стоить менее 0 и более 10 маны. Стоймость в мане: ");
+                    tempWeaponMana = ExceptionHelper.readInt();
+                }
+                System.out.print("Атака: ");
+                int tempWeaponAttack = ExceptionHelper.readInt();
+                while (tempWeaponAttack < 0)
+                {
+                    System.out.print("Оружие не может иметь менее 0 атаки. Атака: ");
+                    tempWeaponAttack = ExceptionHelper.readInt();
+                }
+                System.out.print("Прочность: ");
+                int tempWeaponHealth = ExceptionHelper.readInt();
+                while (tempWeaponHealth < 1)
+                {
+                    System.out.print("Оружие не может иметь менее 1 прочности. Прочность: ");
+                    tempWeaponHealth = ExceptionHelper.readInt();
+                }
+                collection.weapons.add(new Weapon(tempWeaponName, tempWeaponMana, tempWeaponAttack, tempWeaponHealth));
+                collection.save();
+                break;
+            case 0:
+                System.out.println("Возвращаемся в главное меню.");
+                break;
+            default:
+                System.out.println("Действие не распознано. Возвращаемся в главное меню.");
+                break;
+        }
+    }
+    public static void gameMenu()
+    {
         playerMaxMana = 0;
-        enemyMaxMana = 0;
+        enemyHero = MinObrRF.cloneCard();
+        enemySide.add(student.cloneCard());
+        enemySide.add(caredOne.cloneCard());
+        enemySide.add(student.cloneCard());
+        setHero(debtor.cloneCard());
+        playerHand.clear();
+        for (Card card: basicPlayerHand)
+            playerHand.add(card.cloneCard());
         while (playerHero != null && enemyHero != null)
         {
             if (playerMaxMana < 10)

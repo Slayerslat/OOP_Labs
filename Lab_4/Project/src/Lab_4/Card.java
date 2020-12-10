@@ -6,5 +6,6 @@ public abstract class Card
     public int manaCost;
     public void onPlay(){}
     public void onPlay(Character target){}
+    public abstract Card cloneCard();
     public boolean needsTarget;
 }

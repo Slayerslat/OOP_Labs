@@ -41,7 +41,7 @@ public class Creature extends Character
         else
             return name + ". Стоймость " + manaCost + ". Атака " + damage + ". Здоровье " + health + ".";
     }
-    public Creature clone()
+    public Creature cloneCard()
     {
         return new Creature(name, manaCost, damage, health, divineShield);
     }

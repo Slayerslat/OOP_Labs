@@ -14,7 +14,7 @@ public class Weapon extends Interactable
     {
         return name + ". Стоймость " + manaCost + ". Атака " + damage + ". Прочность " + health + ".";
     }
-    public Weapon clone()
+    public Weapon cloneCard()
     {
         return new Weapon(name, manaCost, damage, health);
     }

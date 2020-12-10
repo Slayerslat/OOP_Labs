@@ -4,6 +4,13 @@ public class Hero extends Character
 {
     private int armor;
     private Weapon equippedWeapon;
+    public Hero cloneCard()
+    {
+        Hero hero = new Hero(name, manaCost, damage, maxHealth, armor);
+        if (equippedWeapon != null)
+            hero.equipWeapon(equippedWeapon.cloneCard());
+        return hero;
+    }
     public Hero(String name, int cost, int damage, int health)
     {
         this.name = name;
