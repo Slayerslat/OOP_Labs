@@ -26,21 +26,6 @@ public class Main
 
     public static void main(String[] args)
     {
-//        String test = "Kitty 1 1 1 true/Doggy 1 1 1 falseMark:Bone 2 2 2";
-//        String[] test1 = test.split("Mark:");
-//        for (String txt: test1)
-//            System.out.println("<" + txt + ">");
-//        String[] test2 = test1[0].split("/");
-//        for (String txt: test2)
-//            System.out.println("<" + txt + ">");
-
-
-
-
-
-
-
-
         collection = CardCollection.load();
         if (false)
         {
